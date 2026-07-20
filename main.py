@@ -7,8 +7,6 @@ import mediapipe as mp
 
 print(mp.__version__)
 
-face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
-eye_cascade = cv2.CascadeClassifier("haarcascade_eye.xml")
 mp_face_mesh = mp.solutions.face_mesh.FaceMesh(refine_landmarks=True)
 mp_draw = mp.solutions.drawing_utils
 
