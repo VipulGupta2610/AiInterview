@@ -42,17 +42,22 @@ def faceRecognition():
         if result.multi_face_landmarks:
             
             for faceLandmarks in result.multi_face_landmarks:
+                landmarks = faceLandmarks.landmark
+                h, w, _ = frame.shape
 
+                for idx in LEFT_IRIS:
+                    x = int(landmarks[idx].x * w)
+                    y = int(landmarks[idx].y * h)
+                
+                    cv2.circle(frame, (x, y), 2, (0, 0, 255), -1)
+                for idx in RIGHT_EYE:
+                    x = int(landmarks[idx].x * w)
+                    y = int(landmarks[idx].y * h)
+
+                    cv2.circle(frame, (x, y), 2, (0, 0, 255), -1)
                 mp_draw.draw_landmarks(frame,faceLandmarks , mp.solutions.face_mesh.FACEMESH_TESSELATION)
 
-        if len(eyes) > 0:
-            cv2.putText(frame,
-                        "Eyes detected",
-                        (20,30),
-                        cv2.FONT_HERSHEY_COMPLEX,
-                        0.7,
-                        (0,0,255),
-                        2)
+
 
         cv2.imshow("Detected Face", frame)
 
